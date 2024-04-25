@@ -1,45 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+
 import Carousel from "../../../components/carousel/Carousel";
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 import SwitchTabs from "../../../components/switchTabs/SwitchTabs";
-import { getTopRatedMovies, fetchDataFromApi } from "../../../utils/api";
+
+import useFetch from "../../../hooks/useFetch";
 
 const TopRated = () => {
-    const [page, setPage] = useState(1);
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [endpoint, setEndpoint] = useState("movie");
 
-    useEffect(() => {
-        setLoading(true);
-        const fetchTopRatedMovies = async () => {
-            try {
-                const response = await getTopRatedMovies(page);
-                // Update response data to include images
-                const moviesWithImages = response.data.results.map(movie => ({
-                    ...movie,
-                    imageUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                }));
-                setData(moviesWithImages);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching top rated movies:", error);
-                setLoading(false);
-            }
-        };
-        fetchTopRatedMovies();
-    }, [page]);
+    const { data, loading } = useFetch(`/${endpoint}/top_rated`);
 
-    const handlePageChange = (newPage) => {
-        setPage(newPage);
+    const onTabChange = (tab) => {
+        setEndpoint(tab === "Movies" ? "movie" : "tv");
     };
 
     return (
         <div className="carouselSection">
             <ContentWrapper>
                 <span className="carouselTitle">Top Rated</span>
-                <SwitchTabs data={["Movies"]} onTabChange={handlePageChange} />
+                <SwitchTabs
+                    data={["Movies", "TV Shows"]}
+                    onTabChange={onTabChange}
+                />
             </ContentWrapper>
-            <Carousel data={data} loading={loading} />
+            <Carousel
+                data={data?.results}
+                loading={loading}
+                endpoint={endpoint}
+            />
         </div>
     );
 };

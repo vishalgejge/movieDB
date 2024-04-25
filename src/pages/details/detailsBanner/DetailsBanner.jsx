@@ -25,8 +25,6 @@ const DetailsBanner = ({ video, crew }) => {
 
     const _genres = data?.genres?.map((g) => g.id);
 
-    console.log("Video ->",video)
-    console.log("crew ->",crew)
     const director = crew?.filter((f) => f.job === "Director");
     const writer = crew?.filter(
         (f) => f.job === "Screenplay" || f.job === "Story" || f.job === "Writer"
