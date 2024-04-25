@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import "./style.scss";
 
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
-import useDynamicFetch from "../../../hooks/useDynamicFetch";
+import useFetch from "../../../hooks/useFetch";
 import Genres from "../../../components/genres/Genres";
 import CircleRating from "../../../components/circleRating/CircleRating";
 import Img from "../../../components/lazyLoadImage/Img.jsx";
@@ -19,12 +19,14 @@ const DetailsBanner = ({ video, crew }) => {
     const [videoId, setVideoId] = useState(null);
 
     const { mediaType, id } = useParams();
-    const { data, loading } = useDynamicFetch(id, mediaType);
+    const { data, loading } = useFetch(`/${mediaType}/${id}`);
 
     const { url } = useSelector((state) => state.home);
 
     const _genres = data?.genres?.map((g) => g.id);
 
+    console.log("Video ->",video)
+    console.log("crew ->",crew)
     const director = crew?.filter((f) => f.job === "Director");
     const writer = crew?.filter(
         (f) => f.job === "Screenplay" || f.job === "Story" || f.job === "Writer"
@@ -79,11 +81,11 @@ const DetailsBanner = ({ video, crew }) => {
                                         <Genres data={_genres} />
 
                                         <div className="row">
-                                            {data.vote_average && (
-                                                <CircleRating
-                                                    rating={data.vote_average.toFixed(1)}
-                                                />
-                                            )}
+                                            <CircleRating
+                                                rating={data.vote_average.toFixed(
+                                                    1
+                                                )}
+                                            />
                                             <div
                                                 className="playbtn"
                                                 onClick={() => {
@@ -97,7 +99,6 @@ const DetailsBanner = ({ video, crew }) => {
                                                 </span>
                                             </div>
                                         </div>
-
 
                                         <div className="overview">
                                             <div className="heading">
