@@ -22,12 +22,10 @@ const Footer = () => {
                     <li className="menuItem">FAQ</li>
                 </ul>
                 <div className="infoText">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur.
+                    elcome to Popcorn, your ultimate destination for exploring the world of cinema! At Popcorn, we're passionate about bringing you the latest movies, TV shows, and entertainment news.
+                    ur mission is to create a vibrant community of movie enthusiasts where you can discover, discuss, and share your love for all things film and television.
+                    oin us on this cinematic journey as we celebrate the magic of storytelling and the joy of shared experiences. Lights, camera, action!
+                
                 </div>
                 <div className="socialIcons">
                     <span className="icon">

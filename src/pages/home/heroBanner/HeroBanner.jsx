@@ -38,12 +38,13 @@ const HeroBanner = () => {
 
             <div className="opacity-layer"></div>
             <ContentWrapper>
-                <div className="heroBannerContent">
-                    <span className="title">Welcome.</span>
-                    <span className="subTitle">
-                        Millions of movies, TV shows and people to discover.
-                        Explore now.
-                    </span>
+                <div className="heroBannerContent">  
+                <span className="title">PopCorn</span>
+                <span className="subTitle">
+                    Unveil a universe of cinematic wonders! Dive into millions of
+                    movies, TV shows, and fascinating personas waiting to be discovered.
+                    Step into the world of Popcorn and let the adventure begin
+                </span>
                     <div className="searchInput">
                         <input
                             type="text"
