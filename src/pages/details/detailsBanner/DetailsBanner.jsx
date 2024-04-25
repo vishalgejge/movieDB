@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import "./style.scss";
 
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
-import useFetch from "../../../hooks/useFetch";
+import useDynamicFetch from "../../../hooks/useDynamicFetch";
 import Genres from "../../../components/genres/Genres";
 import CircleRating from "../../../components/circleRating/CircleRating";
 import Img from "../../../components/lazyLoadImage/Img.jsx";
@@ -19,7 +19,7 @@ const DetailsBanner = ({ video, crew }) => {
     const [videoId, setVideoId] = useState(null);
 
     const { mediaType, id } = useParams();
-    const { data, loading } = useFetch(`/${mediaType}/${id}`);
+    const { data, loading } = useDynamicFetch(id, mediaType);
 
     const { url } = useSelector((state) => state.home);
 
@@ -79,11 +79,11 @@ const DetailsBanner = ({ video, crew }) => {
                                         <Genres data={_genres} />
 
                                         <div className="row">
-                                            <CircleRating
-                                                rating={data.vote_average.toFixed(
-                                                    1
-                                                )}
-                                            />
+                                            {data.vote_average && (
+                                                <CircleRating
+                                                    rating={data.vote_average.toFixed(1)}
+                                                />
+                                            )}
                                             <div
                                                 className="playbtn"
                                                 onClick={() => {
@@ -97,6 +97,7 @@ const DetailsBanner = ({ video, crew }) => {
                                                 </span>
                                             </div>
                                         </div>
+
 
                                         <div className="overview">
                                             <div className="heading">

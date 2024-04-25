@@ -8,8 +8,11 @@ const Popular = () => {
     const [page, setPage] = useState(1);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [endpoint, setEndpoint] = useState();
 
     useEffect(() => {
+    setEndpoint("movie")
+
         setLoading(true);
         const fetchUpcomingMovies = async () => {
             try {
@@ -39,7 +42,7 @@ const Popular = () => {
                 <span className="carouselTitle">What's Popular</span>
                 <SwitchTabs data={["Movies"]} onTabChange={handlePageChange} />
             </ContentWrapper>
-            <Carousel data={data} loading={loading} />
+            <Carousel data={data} loading={loading} endpoint={endpoint} />
         </div>
     );
 };
