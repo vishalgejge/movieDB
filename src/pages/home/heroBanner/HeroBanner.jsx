@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./style.scss";
-
+import { getUpcomingMovies } from "../../../utils/api";
 import useFetch from "../../../hooks/useFetch";
-
 import Img from "../../../components/lazyLoadImage/Img";
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 
@@ -16,11 +15,22 @@ const HeroBanner = () => {
     const { data, loading } = useFetch("/movie/upcoming");
 
     useEffect(() => {
-        const bg =
-            url.backdrop +
-            data?.results?.[Math.floor(Math.random() * 20)]?.backdrop_path;
-        setBackground(bg);
-    }, [data]);
+        const fetchBackdropImage = async () => {
+            try {
+                const response = await getUpcomingMovies(1); // Fetching data for the first page
+                const results = response.data.results;
+                if (results && results.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * results.length);
+                    const backdropPath = results[randomIndex].backdrop_path;
+                    const bg = url.backdrop + backdropPath;
+                    setBackground(bg);
+                }
+            } catch (error) {
+                console.error("Error fetching upcoming movies:", error);
+            }
+        };
+        fetchBackdropImage();
+    }, [url]);
 
     const searchQueryHandler = (event) => {
         if (event.key === "Enter" && query.length > 0) {
